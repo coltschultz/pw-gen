@@ -22,7 +22,11 @@ var generatePassword = function(length) {
     symbols: false,
   }
 
-  // Begin User Prompts
+// Begin User Prompts
+
+    var length = prompt('How long do you want your password to be? (Between 8 and 128 Characters)');
+
+    if (length >= 8 && length <= 128) {
 
     if (confirm("Do you want uppercase letters? Ok for Yes, Cancel for No.")) {
       charPool.push(upper);
@@ -43,11 +47,15 @@ var generatePassword = function(length) {
       charPool.push(symb);
       criteria.symbols = true;
     }
-
+  }
+  else {
+    alert('Invalid entry');
+  }
   var userChoices = charPool.join("");
   
-  // Begin Password Selection 
-  
+// Begin Password Selection 
+  var getPass = function() {
+    pword = '';
     for (var i=0; length > i; i++) {
     pword += userChoices.charAt(Math.floor(Math.random() * userChoices.length));
   }
@@ -55,23 +63,23 @@ var generatePassword = function(length) {
   
   console.log(pword);
 
-  // Begin Verifying Password Matches Criteria
+// Begin Verifying Password Matches Criteria
   
    if (criteria.uppercase != upper1.test(pword)) {
      console.log("missing upper");
-     generatePassword(length);
+     getPass(length);
    }
    else if (criteria.lowercase != lower1.test(pword)) {
      console.log("missing lower");
-     generatePassword(length);
+     getPass(length);
    }
    else if (criteria.numbers != numb1.test(pword)) {
      console.log("missing numbers");
-     generatePassword(length);
+     getPass(length);
    }
    else if (criteria.symbols != symb1.test(pword)) {
      console.log("missing symbols");
-     generatePassword(length);
+     getPass(length);
    }
    else {
      console.log("valid");
@@ -79,16 +87,16 @@ var generatePassword = function(length) {
     
      return pword;   
     }
-  
+  }
 
-  
-  console.log(criteria);
-  console.log(upper1.test(pword));
-  console.log(lower1.test(pword));
-  console.log(numb1.test(pword));
-  console.log(symb1.test(pword));
-  console.log(pword)
-  
+  getPass();
+//  console.log(criteria);
+//  console.log(upper1.test(pword));
+//  console.log(lower1.test(pword));
+//  console.log(numb1.test(pword));
+//  console.log(symb1.test(pword));
+//  console.log(pword)
+  return pword;
 }
 
 // Get references to the #generate element
@@ -96,7 +104,7 @@ var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 var writePassword = function() {
-  var password = generatePassword(8);
+  var password = generatePassword(length);
   var passwordText = document.querySelector("#password");
   
   passwordText.value = password;
