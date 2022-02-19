@@ -23,7 +23,7 @@ var generatePassword = function(length) {
   }
 
   // Begin User Prompts
-
+var promptUser = function() 
     if (confirm("Do you want uppercase letters? Ok for Yes, Cancel for No.")) {
       charPool.push(upper);
       criteria.uppercase = true;
@@ -47,16 +47,15 @@ var generatePassword = function(length) {
   var userChoices = charPool.join("");
   
   // Begin Password Selection 
-  
+  var getPass = function () {
     for (var i=0; length > i; i++) {
     pword += userChoices.charAt(Math.floor(Math.random() * userChoices.length));
   }
+  }
   
-  
-  console.log(pword);
 
   // Begin Verifying Password Matches Criteria
-  
+  var checkPass = function() {
    if (criteria.uppercase != upper1.test(pword)) {
      console.log("missing upper");
      generatePassword(length);
@@ -79,8 +78,9 @@ var generatePassword = function(length) {
     
      return pword;   
     }
-  
-
+  }
+  getPass();
+  checkPass();
   
   console.log(criteria);
   console.log(upper1.test(pword));
